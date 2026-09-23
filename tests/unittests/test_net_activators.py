@@ -341,10 +341,7 @@ class TestNetworkManagerActivatorBringUp:
         case, we should use ifcfg files.
         """
 
-        def fake_isfile_no_nmconn(filename):
-            return False if filename.endswith(".nmconnection") else True
-
-        m_isfile.side_effect = fake_isfile_no_nmconn
+        m_isfile.side_effect = lambda filename: not filename.endswith(".nmconnection")
 
         expected_call_list = [
             (
@@ -402,10 +399,7 @@ class TestNetworkManagerActivatorBringUp:
         interface bring up should fail.
         """
 
-        def fake_isfile_no_nmconn(filename):
-            return False if filename.endswith(".nmconnection") else True
-
-        m_isfile.side_effect = fake_isfile_no_nmconn
+        m_isfile.side_effect = lambda filename: not filename.endswith(".nmconnection")
         assert not NetworkManagerActivator.bring_up_interface("eth0")
 
     @patch("cloudinit.subp.subp", return_value=("", ""))
