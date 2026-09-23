@@ -5,6 +5,7 @@
 Testing various config variations of the apt_source custom config
 This tries to call all in the new v3 format and cares about new features
 """
+
 import logging
 import os
 import pathlib

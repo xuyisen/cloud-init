@@ -303,8 +303,7 @@ def build_minimal_ovf(
 
     ns_hostname = f"<ns1:HostName>{hostname}</ns1:HostName>"
 
-    return textwrap.dedent(
-        f"""\
+    return textwrap.dedent(f"""\
         <ns0:Environment xmlns:ns0="http://schemas.dmtf.org/ovf/environment/1"
          xmlns:ns1="http://schemas.microsoft.com/windowsazure"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -325,8 +324,7 @@ def build_minimal_ovf(
             </ns1:PlatformSettings>
           </ns1:PlatformSettingsSection>
         </ns0:Environment>
-        """
-    ).encode("utf-8")
+        """).encode("utf-8")
 
 
 class AzureEndpointHttpClient:
@@ -556,8 +554,7 @@ class OpenSSLManager:
 
 
 class GoalStateHealthReporter:
-    HEALTH_REPORT_XML_TEMPLATE = textwrap.dedent(
-        """\
+    HEALTH_REPORT_XML_TEMPLATE = textwrap.dedent("""\
         <?xml version="1.0" encoding="utf-8"?>
         <Health xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -575,17 +572,14 @@ class GoalStateHealthReporter:
             </RoleInstanceList>
           </Container>
         </Health>
-        """
-    )
+        """)
 
-    HEALTH_DETAIL_SUBSECTION_XML_TEMPLATE = textwrap.dedent(
-        """\
+    HEALTH_DETAIL_SUBSECTION_XML_TEMPLATE = textwrap.dedent("""\
         <Details>
           <SubStatus>{health_substatus}</SubStatus>
           <Description>{health_description}</Description>
         </Details>
-        """
-    )
+        """)
 
     PROVISIONING_SUCCESS_STATUS = "Ready"
     PROVISIONING_NOT_READY_STATUS = "NotReady"

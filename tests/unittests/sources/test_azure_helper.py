@@ -96,14 +96,12 @@ def get_formatted_health_report_xml_bytes(
     ).encode("utf-8")
 
 
-HEALTH_DETAIL_SUBSECTION_XML_TEMPLATE = dedent(
-    """\
+HEALTH_DETAIL_SUBSECTION_XML_TEMPLATE = dedent("""\
     <Details>
       <SubStatus>{health_substatus}</SubStatus>
       <Description>{health_description}</Description>
     </Details>
-    """
-)
+    """)
 
 HEALTH_REPORT_DESCRIPTION_TRIM_LEN = 512
 MOCKPATH = "cloudinit.sources.helpers.azure."

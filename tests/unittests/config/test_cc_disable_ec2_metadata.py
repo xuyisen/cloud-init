@@ -2,7 +2,6 @@
 
 """Tests cc_disable_ec2_metadata handler"""
 
-
 import pytest
 
 import cloudinit.config.cc_disable_ec2_metadata as ec2_meta

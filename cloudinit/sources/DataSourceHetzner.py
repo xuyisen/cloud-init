@@ -51,7 +51,7 @@ class DataSourceHetzner(sources.DataSource):
         self.metadata_full = None
 
     def _get_data(self):
-        (on_hetzner, serial) = get_hcloud_data()
+        on_hetzner, serial = get_hcloud_data()
 
         if not on_hetzner:
             return False

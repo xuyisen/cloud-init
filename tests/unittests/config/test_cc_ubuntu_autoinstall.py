@@ -24,18 +24,12 @@ Name                     Version                     Rev    Tracking      ...
 core20                   20220527                    1518   latest/stable ...
 lxd                      git-69dc707                 23315  latest/edge   ...
 """
-SAMPLE_SNAP_LIST_SUBIQUITY = (
-    SAMPLE_SNAP_LIST_OUTPUT
-    + """
+SAMPLE_SNAP_LIST_SUBIQUITY = SAMPLE_SNAP_LIST_OUTPUT + """
 subiquity                22.06.01                 23315  latest/stable   ...
 """
-)
-SAMPLE_SNAP_LIST_DESKTOP_INSTALLER = (
-    SAMPLE_SNAP_LIST_OUTPUT
-    + """
+SAMPLE_SNAP_LIST_DESKTOP_INSTALLER = SAMPLE_SNAP_LIST_OUTPUT + """
 ubuntu-desktop-installer 22.06.01                 23315  latest/stable   ...
 """
-)
 
 
 @mock.patch(MODPATH + "util.wait_for_snap_seeded")

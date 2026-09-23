@@ -380,8 +380,7 @@ class TestFTP:
 
         client.write_to_file(
             "/lib/systemd/system/local-ftp.service",
-            dedent(
-                """\
+            dedent("""\
                 [Unit]
                 Description=TESTING USE ONLY ftp server
                 Wants=cloud-init-local.service
@@ -400,8 +399,7 @@ class TestFTP:
 
                 [Install]
                 WantedBy=cloud-init.target
-                """
-            ),
+                """),
         )
         assert client.execute(
             "chmod 644 /lib/systemd/system/local-ftp.service"
@@ -411,21 +409,17 @@ class TestFTP:
 
         client.write_to_file(
             "/user-data",
-            dedent(
-                """\
+            dedent("""\
                 #cloud-config
 
                 hostname: ftp-bootstrapper
-                """
-            ),
+                """),
         )
         client.write_to_file(
             "/meta-data",
-            dedent(
-                """\
+            dedent("""\
                 instance-id: ftp-instance
-                """
-            ),
+                """),
         )
         client.write_to_file("/vendor-data", "")
 

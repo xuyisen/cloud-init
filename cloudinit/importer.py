@@ -9,6 +9,7 @@
 # This file is part of cloud-init. See LICENSE file for license information.
 
 import importlib
+import importlib.util
 from types import ModuleType
 from typing import Optional, Sequence
 

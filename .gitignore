@@ -38,3 +38,8 @@ stage
 tags
 tests/integration_tests/user_settings.py
 
+# Shell redirection artifacts
+=[0-9]*
+>[0-9]*
+*.tmp
+*.log

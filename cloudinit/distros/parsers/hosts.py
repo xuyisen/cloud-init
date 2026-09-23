@@ -26,7 +26,7 @@ class HostsConf:
         options = []
         for line_type, components in self._contents:
             if line_type == "option":
-                (pieces, _tail) = components
+                pieces, _tail = components
                 if len(pieces) and pieces[0] == ip:
                     options.append(pieces[1:])
         return options
@@ -39,7 +39,7 @@ class HostsConf:
                 n_entries.append((line_type, components))
                 continue
             else:
-                (pieces, _tail) = components
+                pieces, _tail = components
                 if len(pieces) and pieces[0] == ip:
                     pass
                 elif len(pieces):
@@ -58,7 +58,7 @@ class HostsConf:
             if not len(line.strip()):
                 entries.append(("blank", [line]))
                 continue
-            (head, tail) = chop_comment(line.strip(), "#")
+            head, tail = chop_comment(line.strip(), "#")
             if not len(head):
                 entries.append(("all_comment", [line]))
                 continue
@@ -74,7 +74,7 @@ class HostsConf:
             elif line_type == "all_comment":
                 contents.write("%s\n" % (components[0]))
             elif line_type == "option":
-                (pieces, tail) = components
+                pieces, tail = components
                 pieces = [str(p) for p in pieces]
                 pieces = "\t".join(pieces)
                 contents.write("%s%s\n" % (pieces, tail))

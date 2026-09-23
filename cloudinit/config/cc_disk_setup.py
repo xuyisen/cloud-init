@@ -114,7 +114,7 @@ def update_fs_setup_devices(disk_setup, tformer):
         if origname is None:
             continue
 
-        (dev, part) = util.expand_dotted_devname(origname)
+        dev, part = util.expand_dotted_devname(origname)
 
         tformed = tformer(dev)
         if tformed is not None:
@@ -1299,7 +1299,7 @@ def mkfs(fs_cfg):
                 device = f"{device}p"
             device = "%s%s" % (device, partition)
             if not Path(device).is_block_device():
-                LOG.warning("Path %s does not exist or is not a block device")
+                LOG.warning("Path %s does not exist or is not a block device", device)
                 return
             LOG.debug(
                 "Manual request of partition %s for %s", partition, device

@@ -11,7 +11,6 @@ from tests.unittests import helpers
 from tests.unittests.helpers import replicate_test_root
 
 
-@pytest.mark.usefixtures("fake_filesystem_hook")
 @pytest.fixture(autouse=True)
 def user_data(tmp_path):
     replicate_test_root("simple_ubuntu", str(tmp_path))
@@ -67,7 +66,7 @@ class TestMergeRun:
         mirror = mirrors[0]
         assert mirror["arches"] == ["i386", "amd64", "blah"]
         mods = Modules(initer)
-        (which_ran, failures) = mods.run_section("cloud_init_modules")
+        which_ran, failures = mods.run_section("cloud_init_modules")
         assert not failures
         assert os.path.exists("/etc/blah.ini")
         assert "write_files" in which_ran

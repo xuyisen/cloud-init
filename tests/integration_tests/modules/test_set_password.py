@@ -42,9 +42,7 @@ Uh69tP4GSrGW5XKHxMLiKowJgm/"
     lock_passwd: false
 """
 
-LIST_USER_DATA = (
-    COMMON_USER_DATA
-    + """
+LIST_USER_DATA = COMMON_USER_DATA + """
 chpasswd:
   list:
     - tom:mypassword123!
@@ -52,11 +50,8 @@ chpasswd:
     - harry:RANDOM
     - mikey:$5$xZ$B2YGGEx2AOf4PeW48KC6.QyT1W2B4rZ9Qbltudtha89
 """
-)
 
-STRING_USER_DATA = (
-    COMMON_USER_DATA
-    + """
+STRING_USER_DATA = COMMON_USER_DATA + """
 chpasswd:
     list: |
       tom:mypassword123!
@@ -64,11 +59,8 @@ chpasswd:
       harry:RANDOM
       mikey:$5$xZ$B2YGGEx2AOf4PeW48KC6.QyT1W2B4rZ9Qbltudtha89
 """
-)
 
-USERS_USER_DATA = (
-    COMMON_USER_DATA
-    + """
+USERS_USER_DATA = COMMON_USER_DATA + """
 chpasswd:
   users:
     - name: tom
@@ -81,7 +73,6 @@ chpasswd:
     - name: mikey
       password: $5$xZ$B2YGGEx2AOf4PeW48KC6.QyT1W2B4rZ9Qbltudtha89
 """
-)
 
 USERS_DICTS = yaml.safe_load(COMMON_USER_DATA)["users"]
 USERS_PASSWD_VALUES = {

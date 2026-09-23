@@ -2417,7 +2417,7 @@ class TestReadAzureOvf:
     def test_load_with_pubkeys(self):
         public_keys = [{"fingerprint": "fp1", "path": "path1", "value": ""}]
         content = construct_ovf_env(public_keys=public_keys)
-        (_md, _ud, cfg) = dsaz.read_azure_ovf(content)
+        _md, _ud, cfg = dsaz.read_azure_ovf(content)
         for pk in public_keys:
             assert pk in cfg["_pubkeys"]
 

@@ -1,5 +1,6 @@
 # This file is part of cloud-init. See LICENSE file for license information.
 """schema.py: Set of module functions for processing cloud-config schema."""
+
 import argparse
 import json
 import logging
@@ -721,7 +722,7 @@ def validate_cloudconfig_schema(
     if schema is None:
         schema = get_schema(schema_type)
     try:
-        (cloudinitValidator, FormatChecker) = get_jsonschema_validator()
+        cloudinitValidator, FormatChecker = get_jsonschema_validator()
         if strict_metaschema:
             validate_cloudconfig_metaschema(
                 cloudinitValidator, schema, throw=False

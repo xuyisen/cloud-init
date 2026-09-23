@@ -58,9 +58,7 @@ write_files:
     owner: 'myuser'
     permissions: '0644'
     append: true
-""".format(
-    B64_CONTENT.decode("ascii")
-)
+""".format(B64_CONTENT.decode("ascii"))
 
 
 @pytest.mark.ci

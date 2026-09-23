@@ -10,8 +10,7 @@ from cloudinit import settings, util
 from cloudinit.sources import DataSourceHetzner
 from tests.unittests.helpers import mock
 
-METADATA = util.load_yaml(
-    """
+METADATA = util.load_yaml("""
 hostname: cloudinit-test
 instance-id: 123456
 local-ipv4: ''
@@ -44,8 +43,7 @@ public-keys:
   AAAAC3Nzac1lZdI1NTE5AaaAIaFrcac0yVITsmRrmueq6MD0qYNKlEvW8O1Ib4nkhmWh \
   test-key@workstation
 vendor_data: "test"
-"""
-)
+""")
 
 USERDATA = b"""#cloud-config
 runcmd:

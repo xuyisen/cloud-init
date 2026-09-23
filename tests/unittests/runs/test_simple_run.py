@@ -12,7 +12,6 @@ from cloudinit.sources import NetworkConfigSource
 from tests.unittests.helpers import replicate_test_root
 
 
-@pytest.mark.usefixtures("fake_filesystem_hook")
 @pytest.fixture(autouse=True)
 def replicate_root(tmp_path):
     replicate_test_root("simple_ubuntu", str(tmp_path))
@@ -99,7 +98,7 @@ class TestSimpleRun:
         )
 
         mods = Modules(initer)
-        (which_ran, failures) = mods.run_section("cloud_init_modules")
+        which_ran, failures = mods.run_section("cloud_init_modules")
         assert not failures
         assert os.path.exists("/etc/blah.ini")
         assert "write_files" in which_ran
@@ -128,7 +127,7 @@ class TestSimpleRun:
         )
 
         mods = Modules(initer)
-        (which_ran, failures) = mods.run_section("cloud_init_modules")
+        which_ran, failures = mods.run_section("cloud_init_modules")
         assert not failures
         assert (
             "Skipping modules 'spacewalk' because they are not verified on"
@@ -156,7 +155,7 @@ class TestSimpleRun:
         )
 
         mods = Modules(initer)
-        (which_ran, failures) = mods.run_section("cloud_init_modules")
+        which_ran, failures = mods.run_section("cloud_init_modules")
         assert not failures
         assert "runcmd" in which_ran
         assert (
@@ -188,7 +187,7 @@ class TestSimpleRun:
         )
 
         mods = Modules(initer)
-        (which_ran, failures) = mods.run_section("cloud_init_modules")
+        which_ran, failures = mods.run_section("cloud_init_modules")
         assert not failures
         assert "spacewalk" in which_ran
         assert "running unverified_modules: 'spacewalk'" in caplog.text
@@ -218,6 +217,6 @@ class TestSimpleRun:
         )
 
         mods = Modules(initer)
-        (which_ran, failures) = mods.run_section("cloud_init_modules")
+        which_ran, failures = mods.run_section("cloud_init_modules")
         assert not failures
         assert [] == which_ran

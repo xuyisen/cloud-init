@@ -1,5 +1,6 @@
 # This file is part of cloud-init. See LICENSE file for license information.
 """Test the behavior of loading/discarding pickle data"""
+
 from pathlib import Path
 
 import pytest

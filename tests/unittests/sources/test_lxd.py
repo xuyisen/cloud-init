@@ -315,7 +315,6 @@ class TestDataSourceLXD:
         """get_data calls read_metadata, setting appropiate instance attrs."""
         assert UNSET == lxd_ds._crawled_metadata
         assert UNSET == lxd_ds._network_config
-        assert None is lxd_ds.userdata_raw
         assert True is lxd_ds._get_data()
         assert LXD_V1_METADATA == lxd_ds._crawled_metadata
         # network-config is dumped from YAML

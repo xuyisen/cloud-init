@@ -46,8 +46,7 @@ MOUNT_INFO = [
     "153 68 254:0 / /home rw,relatime shared:101 - xfs /dev/sda2 rw,attr2",
 ]
 
-OS_RELEASE_SLES = dedent(
-    """\
+OS_RELEASE_SLES = dedent("""\
     NAME="SLES"
     VERSION="12-SP3"
     VERSION_ID="12.3"
@@ -55,11 +54,9 @@ OS_RELEASE_SLES = dedent(
     ID="sles"
     ANSI_COLOR="0;32"
     CPE_NAME="cpe:/o:suse:sles:12:sp3"
-"""
-)
+""")
 
-OS_RELEASE_OPENSUSE = dedent(
-    """\
+OS_RELEASE_OPENSUSE = dedent("""\
     NAME="openSUSE Leap"
     VERSION="42.3"
     ID=opensuse
@@ -70,11 +67,9 @@ OS_RELEASE_OPENSUSE = dedent(
     CPE_NAME="cpe:/o:opensuse:leap:42.3"
     BUG_REPORT_URL="https://bugs.opensuse.org"
     HOME_URL="https://www.opensuse.org/"
-"""
-)
+""")
 
-OS_RELEASE_OPENSUSE_L15 = dedent(
-    """\
+OS_RELEASE_OPENSUSE_L15 = dedent("""\
     NAME="openSUSE Leap"
     VERSION="15.0"
     ID="opensuse-leap"
@@ -85,11 +80,9 @@ OS_RELEASE_OPENSUSE_L15 = dedent(
     CPE_NAME="cpe:/o:opensuse:leap:15.0"
     BUG_REPORT_URL="https://bugs.opensuse.org"
     HOME_URL="https://www.opensuse.org/"
-"""
-)
+""")
 
-OS_RELEASE_OPENSUSE_TW = dedent(
-    """\
+OS_RELEASE_OPENSUSE_TW = dedent("""\
     NAME="openSUSE Tumbleweed"
     ID="opensuse-tumbleweed"
     ID_LIKE="opensuse suse"
@@ -99,11 +92,9 @@ OS_RELEASE_OPENSUSE_TW = dedent(
     CPE_NAME="cpe:/o:opensuse:tumbleweed:20180920"
     BUG_REPORT_URL="https://bugs.opensuse.org"
     HOME_URL="https://www.opensuse.org/"
-"""
-)
+""")
 
-OS_RELEASE_CENTOS = dedent(
-    """\
+OS_RELEASE_CENTOS = dedent("""\
     NAME="CentOS Linux"
     VERSION="7 (Core)"
     ID="centos"
@@ -119,11 +110,9 @@ OS_RELEASE_CENTOS = dedent(
     CENTOS_MANTISBT_PROJECT_VERSION="7"
     REDHAT_SUPPORT_PRODUCT="centos"
     REDHAT_SUPPORT_PRODUCT_VERSION="7"
-"""
-)
+""")
 
-OS_RELEASE_REDHAT_7 = dedent(
-    """\
+OS_RELEASE_REDHAT_7 = dedent("""\
     NAME="Red Hat Enterprise Linux Server"
     VERSION="7.5 (Maipo)"
     ID="rhel"
@@ -141,11 +130,9 @@ OS_RELEASE_REDHAT_7 = dedent(
     REDHAT_BUGZILLA_PRODUCT_VERSION=7.5
     REDHAT_SUPPORT_PRODUCT="Red Hat Enterprise Linux"
     REDHAT_SUPPORT_PRODUCT_VERSION="7.5"
-"""
-)
+""")
 
-OS_RELEASE_ALMALINUX_8 = dedent(
-    """\
+OS_RELEASE_ALMALINUX_8 = dedent("""\
     NAME="AlmaLinux"
     VERSION="8.3 (Purple Manul)"
     ID="almalinux"
@@ -160,11 +147,9 @@ OS_RELEASE_ALMALINUX_8 = dedent(
 
     ALMALINUX_MANTISBT_PROJECT="AlmaLinux-8"
     ALMALINUX_MANTISBT_PROJECT_VERSION="8.3"
-"""
-)
+""")
 
-OS_RELEASE_EUROLINUX_7 = dedent(
-    """\
+OS_RELEASE_EUROLINUX_7 = dedent("""\
     VERSION="7.9 (Minsk)"
     ID="eurolinux"
     ID_LIKE="rhel scientific centos fedora"
@@ -178,11 +163,9 @@ OS_RELEASE_EUROLINUX_7 = dedent(
     REDHAT_BUGZILLA_PRODUCT_VERSION=7.9
     REDHAT_SUPPORT_PRODUCT="EuroLinux"
     REDHAT_SUPPORT_PRODUCT_VERSION="7.9"
-"""
-)
+""")
 
-OS_RELEASE_EUROLINUX_8 = dedent(
-    """\
+OS_RELEASE_EUROLINUX_8 = dedent("""\
     NAME="EuroLinux"
     VERSION="8.4 (Vaduz)"
     ID="eurolinux"
@@ -196,11 +179,9 @@ OS_RELEASE_EUROLINUX_8 = dedent(
     BUG_REPORT_URL="https://github.com/EuroLinux/eurolinux-distro-bugs-and-rfc/"
     REDHAT_SUPPORT_PRODUCT="EuroLinux"
     REDHAT_SUPPORT_PRODUCT_VERSION="8"
-"""
-)
+""")
 
-OS_RELEASE_MIRACLELINUX_8 = dedent(
-    """\
+OS_RELEASE_MIRACLELINUX_8 = dedent("""\
     NAME="MIRACLE LINUX"
     VERSION="8.4 (Peony)"
     ID="miraclelinux"
@@ -215,11 +196,9 @@ OS_RELEASE_MIRACLELINUX_8 = dedent(
     BUG_REPORT_URL="https://bugzilla.asianux.com/"
     MIRACLELINUX_SUPPORT_PRODUCT="MIRACLE LINUX"
     MIRACLELINUX_SUPPORT_PRODUCT_VERSION="8"
-"""
-)
+""")
 
-OS_RELEASE_ROCKY_8 = dedent(
-    """\
+OS_RELEASE_ROCKY_8 = dedent("""\
     NAME="Rocky Linux"
     VERSION="8.3 (Green Obsidian)"
     ID="rocky"
@@ -233,11 +212,9 @@ OS_RELEASE_ROCKY_8 = dedent(
     BUG_REPORT_URL="https://bugs.rockylinux.org/"
     ROCKY_SUPPORT_PRODUCT="Rocky Linux"
     ROCKY_SUPPORT_PRODUCT_VERSION="8"
-"""
-)
+""")
 
-OS_RELEASE_VIRTUOZZO_8 = dedent(
-    """\
+OS_RELEASE_VIRTUOZZO_8 = dedent("""\
     NAME="Virtuozzo Linux"
     VERSION="8"
     ID="virtuozzo"
@@ -249,11 +226,9 @@ OS_RELEASE_VIRTUOZZO_8 = dedent(
     CPE_NAME="cpe:/o:virtuozzoproject:vzlinux:8"
     HOME_URL="https://www.vzlinux.org"
     BUG_REPORT_URL="https://bugs.openvz.org"
-"""
-)
+""")
 
-OS_RELEASE_CLOUDLINUX_8 = dedent(
-    """\
+OS_RELEASE_CLOUDLINUX_8 = dedent("""\
     NAME="CloudLinux"
     VERSION="8.4 (Valery Rozhdestvensky)"
     ID="cloudlinux"
@@ -265,22 +240,18 @@ OS_RELEASE_CLOUDLINUX_8 = dedent(
     CPE_NAME="cpe:/o:cloudlinux:cloudlinux:8.4:GA:server"
     HOME_URL="https://www.cloudlinux.com/"
     BUG_REPORT_URL="https://www.cloudlinux.com/support"
-"""
-)
+""")
 
-OS_RELEASE_OPENEULER_20 = dedent(
-    """\
+OS_RELEASE_OPENEULER_20 = dedent("""\
     NAME="openEuler"
     VERSION="20.03 (LTS-SP2)"
     ID="openEuler"
     VERSION_ID="20.03"
     PRETTY_NAME="openEuler 20.03 (LTS-SP2)"
     ANSI_COLOR="0;31"
-"""
-)
+""")
 
-OS_RELEASE_OPENCLOUDOS_8 = dedent(
-    """\
+OS_RELEASE_OPENCLOUDOS_8 = dedent("""\
     NAME="OpenCloudOS"
     VERSION="8.6"
     ID="OpenCloudOS"
@@ -292,11 +263,9 @@ OS_RELEASE_OPENCLOUDOS_8 = dedent(
     CPE_NAME="cpe:/o:opencloudos:opencloudos:8"
     HOME_URL="https://www.opencloudos.org/"
     BUG_REPORT_URL="https://bugs.opencloudos.tech/"
-"""
-)
+""")
 
-OS_RELEASE_TENCENTOS_3 = dedent(
-    """\
+OS_RELEASE_TENCENTOS_3 = dedent("""\
     NAME="TencentOS"
     VERSION="3.1"
     ID="TencentOS"
@@ -306,8 +275,7 @@ OS_RELEASE_TENCENTOS_3 = dedent(
     PRETTY_NAME="TencentOS 3.1"
     ANSI_COLOR="0;31"
     CPE_NAME="cpe:/o:tencentos:tencentos:3"
-"""
-)
+""")
 
 REDHAT_RELEASE_CENTOS_6 = "CentOS release 6.10 (Final)"
 REDHAT_RELEASE_CENTOS_7 = "CentOS Linux release 7.5.1804 (Core)"
@@ -322,8 +290,7 @@ REDHAT_RELEASE_MIRACLELINUX_8 = "MIRACLE LINUX release 8.4 (Peony)"
 REDHAT_RELEASE_ROCKY_8 = "Rocky Linux release 8.3 (Green Obsidian)"
 REDHAT_RELEASE_VIRTUOZZO_8 = "Virtuozzo Linux release 8"
 REDHAT_RELEASE_CLOUDLINUX_8 = "CloudLinux release 8.4 (Valery Rozhdestvensky)"
-OS_RELEASE_DEBIAN = dedent(
-    """\
+OS_RELEASE_DEBIAN = dedent("""\
     PRETTY_NAME="Debian GNU/Linux 9 (stretch)"
     NAME="Debian GNU/Linux"
     VERSION_ID="9"
@@ -332,11 +299,9 @@ OS_RELEASE_DEBIAN = dedent(
     HOME_URL="https://www.debian.org/"
     SUPPORT_URL="https://www.debian.org/support"
     BUG_REPORT_URL="https://bugs.debian.org/"
-"""
-)
+""")
 
-OS_RELEASE_UBUNTU = dedent(
-    """\
+OS_RELEASE_UBUNTU = dedent("""\
     NAME="Ubuntu"\n
     # comment test
     VERSION="16.04.3 LTS (Xenial Xerus)"\n
@@ -349,8 +314,7 @@ OS_RELEASE_UBUNTU = dedent(
     BUG_REPORT_URL="http://bugs.launchpad.net/ubuntu/"\n
     VERSION_CODENAME=xenial\n
     UBUNTU_CODENAME=xenial\n
-"""
-)
+""")
 
 OS_RELEASE_PHOTON = """\
         NAME="VMware Photon OS"
@@ -363,8 +327,7 @@ OS_RELEASE_PHOTON = """\
         BUG_REPORT_URL="https://github.com/vmware/photon/issues"
 """
 
-OS_RELEASE_OPENMANDRIVA = dedent(
-    """\
+OS_RELEASE_OPENMANDRIVA = dedent("""\
     NAME="OpenMandriva Lx"\n
     VERSION="4.90 (Nickel) Cooker"\n
     ID="openmandriva"\n
@@ -379,11 +342,9 @@ OS_RELEASE_OPENMANDRIVA = dedent(
     BUG_REPORT_URL="http://issues.openmandriva.org/"\n
     SUPPORT_URL="https://forum.openmandriva.org"\n
     PRIVACY_POLICY_URL="https://www.openmandriva.org/tos"\n
-"""
-)
+""")
 
-OS_RELEASE_COS = dedent(
-    """\
+OS_RELEASE_COS = dedent("""\
     NAME="Container-Optimized OS"
     ID=cos
     PRETTY_NAME="Container-Optimized OS from Google"
@@ -391,11 +352,9 @@ OS_RELEASE_COS = dedent(
     BUG_REPORT_URL="https://cloud.google.com/container-optimized-os/docs/resources/support-policy#contact_us"
     VERSION=93
     VERSION_ID=93
-"""
-)
+""")
 
-OS_RELEASE_MARINER = dedent(
-    """\
+OS_RELEASE_MARINER = dedent("""\
     NAME="CBL-Mariner"
     VERSION="2.0.20221004"
     ID=mariner
@@ -405,11 +364,9 @@ OS_RELEASE_MARINER = dedent(
     HOME_URL="https://aka.ms/cbl-mariner"
     BUG_REPORT_URL="https://aka.ms/cbl-mariner"
     SUPPORT_URL="https://aka.ms/cbl-mariner"
-"""
-)
+""")
 
-OS_RELEASE_AZURELINUX = dedent(
-    """\
+OS_RELEASE_AZURELINUX = dedent("""\
     NAME="Microsoft Azure Linux"
     VERSION="3.0.20240206"
     ID=azurelinux
@@ -419,8 +376,7 @@ OS_RELEASE_AZURELINUX = dedent(
     HOME_URL="https://aka.ms/azurelinux"
     BUG_REPORT_URL="https://aka.ms/azurelinux"
     SUPPORT_URL="https://aka.ms/azurelinux"
-"""
-)
+""")
 
 
 @pytest.mark.usefixtures("fake_filesystem")

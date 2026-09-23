@@ -47,7 +47,7 @@ class Distro(debian.Distro):
                     ]
                 )
             else:
-                LOG.error("Failed to set locale %s")
+                LOG.error("Failed to set locale %s", locale)
 
     def add_user(self, name, **kwargs) -> bool:
         """

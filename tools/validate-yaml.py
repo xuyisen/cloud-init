@@ -5,7 +5,6 @@
 import sys
 import yaml
 
-
 if __name__ == "__main__":
     bads = 0
     for fn in sys.argv[1:]:

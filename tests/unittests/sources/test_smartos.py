@@ -31,7 +31,10 @@ import serial
 from cloudinit.atomic_helper import b64e
 from cloudinit.event import EventScope, EventType
 from cloudinit.sources import DataSourceSmartOS
-from cloudinit.sources.DataSourceSmartOS import SERIAL_DEVICE, SMARTOS_ENV_KVM
+from cloudinit.sources.DataSourceSmartOS import (
+    SERIAL_DEVICE,
+    SMARTOS_ENV_KVM,
+)
 from cloudinit.sources.DataSourceSmartOS import (
     convert_smartos_network_data as convert_net,
 )
@@ -44,8 +47,7 @@ from cloudinit.util import write_file
 from tests.unittests.helpers import mock, skipIf
 
 DSMOS = "cloudinit.sources.DataSourceSmartOS"
-SDC_NICS = json.loads(
-    """
+SDC_NICS = json.loads("""
 [
     {
         "nic_tag": "external",
@@ -85,12 +87,10 @@ SDC_NICS = json.loads(
         ]
     }
 ]
-"""
-)
+""")
 
 
-SDC_NICS_ALT = json.loads(
-    """
+SDC_NICS_ALT = json.loads("""
 [
     {
         "interface": "net0",
@@ -126,11 +126,9 @@ SDC_NICS_ALT = json.loads(
         "mtu": 1500
     }
 ]
-"""
-)
+""")
 
-SDC_NICS_DHCP = json.loads(
-    """
+SDC_NICS_DHCP = json.loads("""
 [
     {
         "interface": "net0",
@@ -166,11 +164,9 @@ SDC_NICS_DHCP = json.loads(
         "mtu": 1500
     }
 ]
-"""
-)
+""")
 
-SDC_NICS_MIP = json.loads(
-    """
+SDC_NICS_MIP = json.loads("""
 [
     {
         "interface": "net0",
@@ -208,11 +204,9 @@ SDC_NICS_MIP = json.loads(
         "mtu": 1500
     }
 ]
-"""
-)
+""")
 
-SDC_NICS_MIP_IPV6 = json.loads(
-    """
+SDC_NICS_MIP_IPV6 = json.loads("""
 [
     {
         "interface": "net0",
@@ -249,11 +243,9 @@ SDC_NICS_MIP_IPV6 = json.loads(
         "mtu": 1500
     }
 ]
-"""
-)
+""")
 
-SDC_NICS_IPV4_IPV6 = json.loads(
-    """
+SDC_NICS_IPV4_IPV6 = json.loads("""
 [
     {
         "interface": "net0",
@@ -285,11 +277,9 @@ SDC_NICS_IPV4_IPV6 = json.loads(
         "mtu": 1500
     }
 ]
-"""
-)
+""")
 
-SDC_NICS_SINGLE_GATEWAY = json.loads(
-    """
+SDC_NICS_SINGLE_GATEWAY = json.loads("""
 [
   {
     "interface":"net0",
@@ -319,11 +309,9 @@ SDC_NICS_SINGLE_GATEWAY = json.loads(
     "mtu":1500
   }
 ]
-"""
-)
+""")
 
-SDC_NICS_ADDRCONF = json.loads(
-    """
+SDC_NICS_ADDRCONF = json.loads("""
 [
         {
           "gateway": "10.64.1.129",
@@ -344,8 +332,7 @@ SDC_NICS_ADDRCONF = json.loads(
           "vlan_id": 20
         }
 ]
-"""
-)
+""")
 
 MOCK_RETURNS = {
     "hostname": "test-host",

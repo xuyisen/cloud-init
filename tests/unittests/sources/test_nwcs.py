@@ -6,8 +6,7 @@ from cloudinit import settings, util
 from cloudinit.sources import DataSourceNWCS
 from tests.unittests.helpers import mock
 
-METADATA = util.load_yaml(
-    """
+METADATA = util.load_yaml("""
 instance-id: test
 machine_type: b1.centi
 hostname: debian
@@ -24,8 +23,7 @@ public-keys:
   AAAAC3Nzac1lZdI1NTE5AaaAIaFrcac0yVITsmRrmueq6MD0qYNKlEvW8O1Ib4nkhmWh
 userdata: "test"
 vendordata: "test"
-"""
-)
+""")
 
 
 class TestDataSourceNWCS:

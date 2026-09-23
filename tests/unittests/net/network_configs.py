@@ -5,24 +5,19 @@ import textwrap
 NETWORK_CONFIGS = {
     "small_suse_dhcp6": {
         "expected_sysconfig_opensuse": {
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=cf:d6:af:48:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth99": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth99": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DHCLIENT6_MODE=managed
                 LLADDR=c0:d6:9f:2c:e8:80
                 IPADDR=192.168.21.3
                 NETMASK=255.255.255.0
-                STARTMODE=auto"""
-            ),
+                STARTMODE=auto"""),
         },
-        "yaml_v1": textwrap.dedent(
-            """
+        "yaml_v1": textwrap.dedent("""
             version: 1
             config:
                 # Physical interfaces.
@@ -52,10 +47,8 @@ NETWORK_CONFIGS = {
                     - 5.6.7.8
                   search:
                     - wark.maas
-        """
-        ),
-        "yaml_v2": textwrap.dedent(
-            """
+        """),
+        "yaml_v2": textwrap.dedent("""
             version: 2
             ethernets:
                 eth1:
@@ -81,12 +74,10 @@ NETWORK_CONFIGS = {
                         to: 0.0.0.0/0
                         via: 65.61.151.37
                     set-name: eth99
-            """
-        ),
+            """),
     },
     "small_v1": {
-        "expected_networkd_eth99": textwrap.dedent(
-            """\
+        "expected_networkd_eth99": textwrap.dedent("""\
             [Match]
             Name=eth99
             MACAddress=c0:d6:9f:2c:e8:80
@@ -102,10 +93,8 @@ NETWORK_CONFIGS = {
             Gateway=65.61.151.37
             Destination=0.0.0.0/0
             Metric=10000
-        """
-        ).rstrip(" "),
-        "expected_networkd_eth1": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_networkd_eth1": textwrap.dedent("""\
             [Match]
             Name=eth1
             MACAddress=cf:d6:af:48:e8:80
@@ -113,10 +102,8 @@ NETWORK_CONFIGS = {
             DHCP=no
             Domains=wark.maas
             DNS=1.2.3.4 5.6.7.8
-        """
-        ).rstrip(" "),
-        "expected_eni": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
                 dns-nameservers 1.2.3.4 5.6.7.8
@@ -134,10 +121,8 @@ NETWORK_CONFIGS = {
                 dns-search barley.maas sach.maas
                 post-up route add default gw 65.61.151.37 metric 10000 || true
                 pre-down route del default gw 65.61.151.37 metric 10000 || true
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
@@ -163,36 +148,28 @@ NETWORK_CONFIGS = {
                             to: 0.0.0.0/0
                             via: 65.61.151.37
                         set-name: eth99
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         "expected_sysconfig_opensuse": {
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=cf:d6:af:48:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth99": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth99": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 LLADDR=c0:d6:9f:2c:e8:80
                 IPADDR=192.168.21.3
                 NETMASK=255.255.255.0
-                STARTMODE=auto"""
-            ),
+                STARTMODE=auto"""),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth1
                 HWADDR=cf:d6:af:48:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth99": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth99": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEFROUTE=yes
                 DEVICE=eth99
@@ -207,12 +184,10 @@ NETWORK_CONFIGS = {
                 IPV4_ROUTE_METRIC=10000
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
+                USERCTL=no"""),
         },
         "expected_network_manager": {
-            "cloud-init-eth1.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -227,10 +202,8 @@ NETWORK_CONFIGS = {
                 [ethernet]
                 mac-address=CF:D6:AF:48:E8:80
 
-                """
-            ),
-            "cloud-init-eth99.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth99.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -254,11 +227,9 @@ NETWORK_CONFIGS = {
                 dns=8.8.8.8;8.8.4.4;
                 dns-search=barley.maas;sach.maas;
 
-                """
-            ),
+                """),
         },
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 1
             config:
                 # Physical interfaces.
@@ -287,14 +258,12 @@ NETWORK_CONFIGS = {
                     - 5.6.7.8
                   search:
                     - wark.maas
-        """
-        ),
+        """),
     },
     # We test a separate set of configs here because v2 doesn't support
     # generic nameservers, so that aspect needs to be modified
     "small_v2": {
-        "expected_networkd_eth99": textwrap.dedent(
-            """\
+        "expected_networkd_eth99": textwrap.dedent("""\
             [Match]
             Name=eth99
             MACAddress=c0:d6:9f:2c:e8:80
@@ -308,19 +277,15 @@ NETWORK_CONFIGS = {
             Gateway=65.61.151.37
             Destination=0.0.0.0/0
             Metric=10000
-        """
-        ).rstrip(" "),
-        "expected_networkd_eth1": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_networkd_eth1": textwrap.dedent("""\
             [Match]
             Name=eth1
             MACAddress=cf:d6:af:48:e8:80
             [Network]
             DHCP=no
-        """
-        ).rstrip(" "),
-        "expected_eni": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -336,36 +301,28 @@ NETWORK_CONFIGS = {
                 dns-search barley.maas sach.maas
                 post-up route add default gw 65.61.151.37 metric 10000 || true
                 pre-down route del default gw 65.61.151.37 metric 10000 || true
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         "expected_sysconfig_opensuse": {
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=cf:d6:af:48:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth99": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth99": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 LLADDR=c0:d6:9f:2c:e8:80
                 IPADDR=192.168.21.3
                 NETMASK=255.255.255.0
-                STARTMODE=auto"""
-            ),
+                STARTMODE=auto"""),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth1
                 HWADDR=cf:d6:af:48:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth99": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth99": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEFROUTE=yes
                 DEVICE=eth99
@@ -380,12 +337,10 @@ NETWORK_CONFIGS = {
                 IPV4_ROUTE_METRIC=10000
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
+                USERCTL=no"""),
         },
         "expected_network_manager": {
-            "cloud-init-eth1.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -400,10 +355,8 @@ NETWORK_CONFIGS = {
                 [ethernet]
                 mac-address=CF:D6:AF:48:E8:80
 
-                """
-            ),
-            "cloud-init-eth99.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth99.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -427,11 +380,9 @@ NETWORK_CONFIGS = {
                 dns=8.8.8.8;8.8.4.4;
                 dns-search=barley.maas;sach.maas;
 
-                """
-            ),
+                """),
         },
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 2
             ethernets:
                 eth1:
@@ -456,20 +407,16 @@ NETWORK_CONFIGS = {
                         to: 0.0.0.0/0
                         via: 65.61.151.37
                     set-name: eth99
-            """
-        ),
+            """),
     },
     "v4_and_v6": {
-        "expected_networkd": textwrap.dedent(
-            """\
+        "expected_networkd": textwrap.dedent("""\
             [Match]
             Name=iface0
             [Network]
             DHCP=yes
-        """
-        ).rstrip(" "),
-        "expected_eni": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -478,29 +425,21 @@ NETWORK_CONFIGS = {
 
             # control-alias iface0
             iface iface0 inet6 dhcp
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
                     iface0:
                         dhcp4: true
                         dhcp6: true
-        """
-        ).rstrip(" "),
-        "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+        """).rstrip(" "),
+        "expected_sysconfig_opensuse": {"ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DHCLIENT6_MODE=managed
-                STARTMODE=auto"""
-            )
-        },
+                STARTMODE=auto""")},
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -523,11 +462,9 @@ NETWORK_CONFIGS = {
                 method=auto
                 may-fail=true
 
-                """
-            ),
+                """),
         },
-        "yaml_v1": textwrap.dedent(
-            """\
+        "yaml_v1": textwrap.dedent("""\
             version: 1
             config:
               - type: 'physical'
@@ -535,21 +472,17 @@ NETWORK_CONFIGS = {
                 subnets:
                 - {'type': 'dhcp4'}
                 - {'type': 'dhcp6'}
-        """
-        ).rstrip(" "),
-        "yaml_v2": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
                     dhcp4: true
                     dhcp6: true
-        """
-        ),
+        """),
     },
     "v1_ipv4_and_ipv6_static": {
-        "expected_networkd": textwrap.dedent(
-            """\
+        "expected_networkd": textwrap.dedent("""\
             [Match]
             Name=iface0
             [Link]
@@ -560,10 +493,8 @@ NETWORK_CONFIGS = {
             Address=192.168.14.2/24
             [Address]
             Address=2001:1::1/64
-        """
-        ).rstrip(" "),
-        "expected_eni": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -576,10 +507,8 @@ NETWORK_CONFIGS = {
             iface iface0 inet6 static
                 address 2001:1::1/64
                 mtu 1500
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
@@ -589,10 +518,8 @@ NETWORK_CONFIGS = {
                         - 2001:1::1/64
                         ipv6-mtu: 1500
                         mtu: 9000
-        """
-        ).rstrip(" "),
-        "yaml_v1": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v1": textwrap.dedent("""\
             version: 1
             config:
               - type: 'physical'
@@ -605,23 +532,19 @@ NETWORK_CONFIGS = {
                   - type: static
                     address: 2001:1::1/64
                     mtu: 1500
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=static
                 IPADDR=192.168.14.2
                 IPADDR6=2001:1::1/64
                 NETMASK=255.255.255.0
                 STARTMODE=auto
                 MTU=9000
-                """
-            ),
+                """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=iface0
                 IPADDR=192.168.14.2
@@ -635,12 +558,10 @@ NETWORK_CONFIGS = {
                 USERCTL=no
                 MTU=9000
                 IPV6_MTU=1500
-                """
-            ),
+                """),
         },
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -666,13 +587,11 @@ NETWORK_CONFIGS = {
                 may-fail=false
                 address1=2001:1::1/64
 
-                """
-            ),
+                """),
         },
     },
     "v2_ipv4_and_ipv6_static": {
-        "yaml_v2": textwrap.dedent(
-            """\
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
@@ -680,10 +599,8 @@ NETWORK_CONFIGS = {
                     - 192.168.14.2/24
                     - 2001:1::1/64
                     mtu: 9000
-        """
-        ).rstrip(" "),
-        "expected_networkd": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_networkd": textwrap.dedent("""\
             [Match]
             Name=iface0
             [Link]
@@ -694,10 +611,8 @@ NETWORK_CONFIGS = {
             Address=192.168.14.2/24
             [Address]
             Address=2001:1::1/64
-        """
-        ).rstrip(" "),
-        "expected_eni": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -709,10 +624,8 @@ NETWORK_CONFIGS = {
             # control-alias iface0
             iface iface0 inet6 static
                 address 2001:1::1/64
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
@@ -721,23 +634,19 @@ NETWORK_CONFIGS = {
                         - 192.168.14.2/24
                         - 2001:1::1/64
                         mtu: 9000
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=static
                 IPADDR=192.168.14.2
                 IPADDR6=2001:1::1/64
                 NETMASK=255.255.255.0
                 STARTMODE=auto
                 MTU=9000
-                """
-            ),
+                """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=iface0
                 IPADDR=192.168.14.2
@@ -750,12 +659,10 @@ NETWORK_CONFIGS = {
                 TYPE=Ethernet
                 USERCTL=no
                 MTU=9000
-                """
-            ),
+                """),
         },
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -781,22 +688,16 @@ NETWORK_CONFIGS = {
                 may-fail=false
                 address1=2001:1::1/64
 
-                """
-            ),
+                """),
         },
     },
     "v6_and_v4": {
-        "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+        "expected_sysconfig_opensuse": {"ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DHCLIENT6_MODE=managed
-                STARTMODE=auto"""
-            )
-        },
+                STARTMODE=auto""")},
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -819,11 +720,9 @@ NETWORK_CONFIGS = {
                 method=auto
                 may-fail=true
 
-                """
-            ),
+                """),
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 1
             config:
               - type: 'physical'
@@ -831,68 +730,54 @@ NETWORK_CONFIGS = {
                 subnets:
                   - type: dhcp6
                   - type: dhcp4
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         # Do not include a yaml_v2 here as it renders exactly the same as
         # the v4_and_v6 case, and that's fine
     },
     "dhcpv6_only": {
-        "expected_networkd": textwrap.dedent(
-            """\
+        "expected_networkd": textwrap.dedent("""\
             [Match]
             Name=iface0
             [Network]
             DHCP=ipv6
-        """
-        ).rstrip(" "),
-        "expected_eni": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
             auto iface0
             iface iface0 inet6 dhcp
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
                     iface0:
                         dhcp6: true
-        """
-        ).rstrip(" "),
-        "yaml_v1": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v1": textwrap.dedent("""\
             version: 1
             config:
               - type: 'physical'
                 name: 'iface0'
                 subnets:
                 - {'type': 'dhcp6'}
-        """
-        ).rstrip(" "),
-        "yaml_v2": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
                     dhcp6: true
-            """
-        ),
+            """),
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp6
                 DHCLIENT6_MODE=managed
                 STARTMODE=auto
-                """
-            ),
+                """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=iface0
                 DHCPV6C=yes
@@ -901,12 +786,10 @@ NETWORK_CONFIGS = {
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
+                """),
         },
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -925,33 +808,27 @@ NETWORK_CONFIGS = {
                 method=auto
                 may-fail=false
 
-                """
-            ),
+                """),
         },
     },
     "dhcpv6_accept_ra": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
             auto iface0
             iface iface0 inet6 dhcp
                 accept-ra 1
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
                     iface0:
                         accept-ra: true
                         dhcp6: true
-        """
-        ).rstrip(" "),
-        "yaml_v1": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v1": textwrap.dedent("""\
             version: 1
             config:
               - type: 'physical'
@@ -959,29 +836,23 @@ NETWORK_CONFIGS = {
                 subnets:
                 - {'type': 'dhcp6'}
                 accept-ra: true
-        """
-        ).rstrip(" "),
-        "yaml_v2": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
                     dhcp6: true
                     accept-ra: true
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp6
                 DHCLIENT6_MODE=managed
                 STARTMODE=auto
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=iface0
                 DHCPV6C=yes
@@ -991,42 +862,34 @@ NETWORK_CONFIGS = {
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-            """
-            ),
+            """),
         },
-        "expected_networkd": textwrap.dedent(
-            """\
+        "expected_networkd": textwrap.dedent("""\
                 [Match]
                 Name=iface0
                 [Network]
                 DHCP=ipv6
                 IPv6AcceptRA=yes
-            """
-        ).rstrip(" "),
+            """).rstrip(" "),
     },
     "dhcpv6_reject_ra": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
             auto iface0
             iface iface0 inet6 dhcp
                 accept-ra 0
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
                     iface0:
                         accept-ra: false
                         dhcp6: true
-        """
-        ).rstrip(" "),
-        "yaml_v1": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v1": textwrap.dedent("""\
             version: 1
             config:
             - type: 'physical'
@@ -1034,29 +897,23 @@ NETWORK_CONFIGS = {
               subnets:
               - {'type': 'dhcp6'}
               accept-ra: false
-        """
-        ).rstrip(" "),
-        "yaml_v2": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
                     dhcp6: true
                     accept-ra: false
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp6
                 DHCLIENT6_MODE=managed
                 STARTMODE=auto
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=iface0
                 DHCPV6C=yes
@@ -1066,63 +923,51 @@ NETWORK_CONFIGS = {
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-            """
-            ),
+            """),
         },
-        "expected_networkd": textwrap.dedent(
-            """\
+        "expected_networkd": textwrap.dedent("""\
                 [Match]
                 Name=iface0
                 [Network]
                 DHCP=ipv6
                 IPv6AcceptRA=no
-            """
-        ).rstrip(" "),
+            """).rstrip(" "),
     },
     "ipv6_slaac": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
             auto iface0
             iface iface0 inet6 auto
                 dhcp 0
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
                     iface0:
                         dhcp6: true
-        """
-        ).rstrip(" "),
-        "yaml": textwrap.dedent(
-            """\
+        """).rstrip(" "),
+        "yaml": textwrap.dedent("""\
             version: 1
             config:
             - type: 'physical'
               name: 'iface0'
               subnets:
               - {'type': 'ipv6_slaac'}
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         # A yaml_v2 doesn't make sense here as the configuration looks exactly
         # the same as the dhcpv6_only test.
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp6
                 DHCLIENT6_MODE=info
                 STARTMODE=auto
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=iface0
                 IPV6_AUTOCONF=yes
@@ -1131,12 +976,10 @@ NETWORK_CONFIGS = {
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-            """
-            ),
+            """),
         },
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -1158,13 +1001,11 @@ NETWORK_CONFIGS = {
                 [ipv4]
                 method=disabled
 
-                """
-            ),
+                """),
         },
     },
     "static6": {
-        "yaml_v1": textwrap.dedent(
-            """\
+        "yaml_v1": textwrap.dedent("""\
         version: 1
         config:
           - type: 'physical'
@@ -1173,21 +1014,17 @@ NETWORK_CONFIGS = {
             subnets:
             - type: 'static6'
               address: 2001:1::1/64
-    """
-        ).rstrip(" "),
-        "yaml_v2": textwrap.dedent(
-            """\
+    """).rstrip(" "),
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
                     accept-ra: false
                     addresses:
                     - 2001:1::1/64
-            """
-        ),
+            """),
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
             BOOTPROTO=none
             DEVICE=iface0
             IPV6ADDR=2001:1::1/64
@@ -1198,54 +1035,44 @@ NETWORK_CONFIGS = {
             ONBOOT=yes
             TYPE=Ethernet
             USERCTL=no
-            """
-            ),
+            """),
         },
     },
     "dhcpv6_stateless": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
         auto lo
         iface lo inet loopback
 
         auto iface0
         iface iface0 inet6 auto
             dhcp 1
-    """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+    """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
         network:
             version: 2
             ethernets:
                 iface0:
                     dhcp6: true
-    """
-        ).rstrip(" "),
-        "yaml": textwrap.dedent(
-            """\
+    """).rstrip(" "),
+        "yaml": textwrap.dedent("""\
         version: 1
         config:
           - type: 'physical'
             name: 'iface0'
             subnets:
             - {'type': 'ipv6_dhcpv6-stateless'}
-    """
-        ).rstrip(" "),
+    """).rstrip(" "),
         # yaml_v2 makes no sense here as it would be the exact same
         # configuration as the dhcpv6_only test
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
             BOOTPROTO=dhcp6
             DHCLIENT6_MODE=info
             STARTMODE=auto
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
             BOOTPROTO=none
             DEVICE=iface0
             DHCPV6C=yes
@@ -1256,12 +1083,10 @@ NETWORK_CONFIGS = {
             ONBOOT=yes
             TYPE=Ethernet
             USERCTL=no
-            """
-            ),
+            """),
         },
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -1283,32 +1108,26 @@ NETWORK_CONFIGS = {
                 [ipv4]
                 method=disabled
 
-                """
-            ),
+                """),
         },
     },
     "dhcpv6_stateful": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
         auto lo
         iface lo inet loopback
 
         auto iface0
         iface iface0 inet6 dhcp
-    """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+    """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
         network:
             version: 2
             ethernets:
                 iface0:
                     accept-ra: true
                     dhcp6: true
-    """
-        ).rstrip(" "),
-        "yaml": textwrap.dedent(
-            """\
+    """).rstrip(" "),
+        "yaml": textwrap.dedent("""\
         version: 1
         config:
           - type: 'physical'
@@ -1316,22 +1135,18 @@ NETWORK_CONFIGS = {
             subnets:
             - {'type': 'ipv6_dhcpv6-stateful'}
             accept-ra: true
-    """
-        ).rstrip(" "),
+    """).rstrip(" "),
         # yaml_v2 makes no sense here as it would be the exact same
         # configuration as the dhcpv6_only test
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
             BOOTPROTO=dhcp6
             DHCLIENT6_MODE=managed
             STARTMODE=auto
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
             BOOTPROTO=none
             DEVICE=iface0
             DHCPV6C=yes
@@ -1343,52 +1158,42 @@ NETWORK_CONFIGS = {
             ONBOOT=yes
             TYPE=Ethernet
             USERCTL=no
-            """
-            ),
+            """),
         },
     },
     "wakeonlan_disabled": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
             auto iface0
             iface iface0 inet dhcp
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 ethernets:
                     iface0:
                         dhcp4: true
                         wakeonlan: false
                 version: 2
-        """
-        ),
+        """),
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 STARTMODE=auto
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEVICE=iface0
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-            """
-            ),
+            """),
         },
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -1407,64 +1212,52 @@ NETWORK_CONFIGS = {
                 method=auto
                 may-fail=false
 
-                """
-            ),
+                """),
         },
-        "yaml_v2": textwrap.dedent(
-            """\
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
                     dhcp4: true
                     wakeonlan: false
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
     },
     "wakeonlan_enabled": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
             auto iface0
             iface iface0 inet dhcp
                 ethernet-wol g
-        """
-        ).rstrip(" "),
-        "expected_netplan": textwrap.dedent(
-            """
+        """).rstrip(" "),
+        "expected_netplan": textwrap.dedent("""
             network:
                 ethernets:
                     iface0:
                         dhcp4: true
                         wakeonlan: true
                 version: 2
-        """
-        ),
+        """),
         "expected_sysconfig_opensuse": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 ETHTOOL_OPTS="wol g"
                 STARTMODE=auto
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-iface0": textwrap.dedent(
-                """\
+            "ifcfg-iface0": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEVICE=iface0
                 ETHTOOL_OPTS="wol g"
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-            """
-            ),
+            """),
         },
         "expected_network_manager": {
-            "cloud-init-iface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-iface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -1484,18 +1277,15 @@ NETWORK_CONFIGS = {
                 method=auto
                 may-fail=false
 
-                """
-            ),
+                """),
         },
-        "yaml_v2": textwrap.dedent(
-            """\
+        "yaml_v2": textwrap.dedent("""\
             version: 2
             ethernets:
                 iface0:
                     dhcp4: true
                     wakeonlan: true
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
     },
     "large_v1": {
         "expected_eni": """\
@@ -1591,8 +1381,7 @@ iface eth0.101 inet static
 post-up route add -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
 pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
 """,
-        "expected_netplan": textwrap.dedent(
-            """
+        "expected_netplan": textwrap.dedent("""
             network:
                 version: 2
                 ethernets:
@@ -1690,8 +1479,7 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                         routes:
                         -   to: default
                             via: 192.168.0.1
-        """
-        ).rstrip(" "),
+        """).rstrip(" "),
         "expected_sysconfig_opensuse": {
             "ifcfg-bond0": textwrap.dedent(
                 """\
@@ -1706,15 +1494,12 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 LLADDR=aa:bb:cc:dd:ee:ff
                 STARTMODE=auto"""
             ),
-            "ifcfg-bond0.200": textwrap.dedent(
-                """\
+            "ifcfg-bond0.200": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 ETHERDEVICE=bond0
                 STARTMODE=auto
-                VLAN_ID=200"""
-            ),
-            "ifcfg-br0": textwrap.dedent(
-                """\
+                VLAN_ID=200"""),
+            "ifcfg-br0": textwrap.dedent("""\
                 BRIDGE_AGEINGTIME=250
                 BOOTPROTO=static
                 IPADDR=192.168.14.2
@@ -1724,16 +1509,12 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 BRIDGE_PRIORITY=22
                 BRIDGE_PORTS='eth3 eth4'
                 STARTMODE=auto
-                BRIDGE_STP=off"""
-            ),
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+                BRIDGE_STP=off"""),
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=c0:d6:9f:2c:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth0.101": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth0.101": textwrap.dedent("""\
                 BOOTPROTO=static
                 IPADDR=192.168.0.2
                 IPADDR1=192.168.2.10
@@ -1742,50 +1523,37 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 NETMASK1=255.255.255.0
                 ETHERDEVICE=eth0
                 STARTMODE=auto
-                VLAN_ID=101"""
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                VLAN_ID=101"""),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 LLADDR=aa:d6:9f:2c:e8:80
-                STARTMODE=hotplug"""
-            ),
-            "ifcfg-eth2": textwrap.dedent(
-                """\
+                STARTMODE=hotplug"""),
+            "ifcfg-eth2": textwrap.dedent("""\
                 BOOTPROTO=none
                 LLADDR=c0:bb:9f:2c:e8:80
-                STARTMODE=hotplug"""
-            ),
-            "ifcfg-eth3": textwrap.dedent(
-                """\
+                STARTMODE=hotplug"""),
+            "ifcfg-eth3": textwrap.dedent("""\
                 BOOTPROTO=static
                 BRIDGE=yes
                 LLADDR=66:bb:9f:2c:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth4": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth4": textwrap.dedent("""\
                 BOOTPROTO=static
                 BRIDGE=yes
                 LLADDR=98:bb:9f:2c:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth5": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth5": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 LLADDR=98:bb:9f:2c:e8:8a
-                STARTMODE=manual"""
-            ),
-            "ifcfg-ib0": textwrap.dedent(
-                """\
+                STARTMODE=manual"""),
+            "ifcfg-ib0": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=a0:00:02:20:fe:80:00:00:00:00:00:00:ec:0d:9a:03:00:15:e2:c1
                 IPADDR=192.168.200.7
                 MTU=9000
                 NETMASK=255.255.255.0
                 STARTMODE=auto
-                TYPE=InfiniBand"""
-            ),
+                TYPE=InfiniBand"""),
         },
         "expected_sysconfig_rhel": {
             "ifcfg-bond0": textwrap.dedent(
@@ -1805,18 +1573,15 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 TYPE=Bond
                 USERCTL=no"""
             ),
-            "ifcfg-bond0.200": textwrap.dedent(
-                """\
+            "ifcfg-bond0.200": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEVICE=bond0.200
                 DHCLIENT_SET_DEFAULT_ROUTE=no
                 ONBOOT=yes
                 PHYSDEV=bond0
                 USERCTL=no
-                VLAN=yes"""
-            ),
-            "ifcfg-br0": textwrap.dedent(
-                """\
+                VLAN=yes"""),
+            "ifcfg-br0": textwrap.dedent("""\
                 AGEING=250
                 BOOTPROTO=none
                 DEFROUTE=yes
@@ -1833,19 +1598,15 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 PRIO=22
                 STP=no
                 TYPE=Bridge
-                USERCTL=no"""
-            ),
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth0
                 HWADDR=c0:d6:9f:2c:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth0.101": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth0.101": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEFROUTE=yes
                 DEVICE=eth0.101
@@ -1861,10 +1622,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 ONBOOT=yes
                 PHYSDEV=eth0
                 USERCTL=no
-                VLAN=yes"""
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                VLAN=yes"""),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth1
                 HWADDR=aa:d6:9f:2c:e8:80
@@ -1872,10 +1631,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 ONBOOT=yes
                 SLAVE=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth2": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth2": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth2
                 HWADDR=c0:bb:9f:2c:e8:80
@@ -1883,40 +1640,32 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 ONBOOT=yes
                 SLAVE=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth3": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth3": textwrap.dedent("""\
                 BOOTPROTO=none
                 BRIDGE=br0
                 DEVICE=eth3
                 HWADDR=66:bb:9f:2c:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth4": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth4": textwrap.dedent("""\
                 BOOTPROTO=none
                 BRIDGE=br0
                 DEVICE=eth4
                 HWADDR=98:bb:9f:2c:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth5": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth5": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEVICE=eth5
                 DHCLIENT_SET_DEFAULT_ROUTE=no
                 HWADDR=98:bb:9f:2c:e8:8a
                 ONBOOT=no
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-ib0": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-ib0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=ib0
                 HWADDR=a0:00:02:20:fe:80:00:00:00:00:00:00:ec:0d:9a:03:00:15:e2:c1
@@ -1925,12 +1674,10 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 NETMASK=255.255.255.0
                 ONBOOT=yes
                 TYPE=InfiniBand
-                USERCTL=no"""
-            ),
+                USERCTL=no"""),
         },
         "expected_network_manager": {
-            "cloud-init-eth3.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth3.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -1947,10 +1694,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=66:BB:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-eth5.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth5.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -1971,10 +1716,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=8.8.8.8;4.4.4.4;8.8.4.4;
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-ib0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-ib0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -1998,10 +1741,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=8.8.8.8;4.4.4.4;8.8.4.4;
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-bond0.200.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0.200.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2024,10 +1765,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=8.8.8.8;4.4.4.4;8.8.4.4;
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2042,10 +1781,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=C0:D6:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-eth4.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth4.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2062,10 +1799,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=98:BB:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-eth1.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2082,10 +1817,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=AA:D6:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-br0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-br0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2117,10 +1850,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 route1=::/0,2001:4800:78ff:1b::1
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-eth0.101.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth0.101.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2146,10 +1877,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=192.168.0.10;10.23.23.134;
                 dns-search=barley.maas;sacchromyces.maas;brettanomyces.maas;
 
-                """
-            ),
-            "cloud-init-bond0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2170,10 +1899,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 may-fail=false
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-eth2.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth2.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2190,11 +1917,9 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=C0:BB:9F:2C:E8:80
 
-                """
-            ),
+                """),
         },
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 1
             config:
                 # Physical interfaces.
@@ -2337,8 +2062,7 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                   destination: 10.0.0.0/8
                   gateway: 11.0.0.1
                   metric: 3
-        """
-        ).lstrip(),
+        """).lstrip(),
     },
     "large_v2": {
         "expected_eni": """\
@@ -2446,15 +2170,12 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 LLADDR=aa:bb:cc:dd:ee:ff
                 STARTMODE=auto"""
             ),
-            "ifcfg-bond0.200": textwrap.dedent(
-                """\
+            "ifcfg-bond0.200": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 ETHERDEVICE=bond0
                 STARTMODE=auto
-                VLAN_ID=200"""
-            ),
-            "ifcfg-br0": textwrap.dedent(
-                """\
+                VLAN_ID=200"""),
+            "ifcfg-br0": textwrap.dedent("""\
                 BRIDGE_AGEINGTIME=250
                 BOOTPROTO=static
                 IPADDR=192.168.14.2
@@ -2464,16 +2185,12 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 BRIDGE_PRIORITY=22
                 BRIDGE_PORTS='eth3 eth4'
                 STARTMODE=auto
-                BRIDGE_STP=off"""
-            ),
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+                BRIDGE_STP=off"""),
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=c0:d6:9f:2c:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth0.101": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth0.101": textwrap.dedent("""\
                 BOOTPROTO=static
                 IPADDR=192.168.0.2
                 IPADDR1=192.168.2.10
@@ -2482,50 +2199,37 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 NETMASK1=255.255.255.0
                 ETHERDEVICE=eth0
                 STARTMODE=auto
-                VLAN_ID=101"""
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                VLAN_ID=101"""),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 LLADDR=aa:d6:9f:2c:e8:80
-                STARTMODE=hotplug"""
-            ),
-            "ifcfg-eth2": textwrap.dedent(
-                """\
+                STARTMODE=hotplug"""),
+            "ifcfg-eth2": textwrap.dedent("""\
                 BOOTPROTO=none
                 LLADDR=c0:bb:9f:2c:e8:80
-                STARTMODE=hotplug"""
-            ),
-            "ifcfg-eth3": textwrap.dedent(
-                """\
+                STARTMODE=hotplug"""),
+            "ifcfg-eth3": textwrap.dedent("""\
                 BOOTPROTO=static
                 BRIDGE=yes
                 LLADDR=66:bb:9f:2c:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth4": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth4": textwrap.dedent("""\
                 BOOTPROTO=static
                 BRIDGE=yes
                 LLADDR=98:bb:9f:2c:e8:80
-                STARTMODE=auto"""
-            ),
-            "ifcfg-eth5": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-eth5": textwrap.dedent("""\
                 BOOTPROTO=dhcp4
                 LLADDR=98:bb:9f:2c:e8:8a
-                STARTMODE=manual"""
-            ),
-            "ifcfg-ib0": textwrap.dedent(
-                """\
+                STARTMODE=manual"""),
+            "ifcfg-ib0": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=a0:00:02:20:fe:80:00:00:00:00:00:00:ec:0d:9a:03:00:15:e2:c1
                 IPADDR=192.168.200.7
                 MTU=9000
                 NETMASK=255.255.255.0
                 STARTMODE=auto
-                TYPE=InfiniBand"""
-            ),
+                TYPE=InfiniBand"""),
         },
         "expected_sysconfig_rhel": {
             "ifcfg-bond0": textwrap.dedent(
@@ -2545,18 +2249,15 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 TYPE=Bond
                 USERCTL=no"""
             ),
-            "ifcfg-bond0.200": textwrap.dedent(
-                """\
+            "ifcfg-bond0.200": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEVICE=bond0.200
                 DHCLIENT_SET_DEFAULT_ROUTE=no
                 ONBOOT=yes
                 PHYSDEV=bond0
                 USERCTL=no
-                VLAN=yes"""
-            ),
-            "ifcfg-br0": textwrap.dedent(
-                """\
+                VLAN=yes"""),
+            "ifcfg-br0": textwrap.dedent("""\
                 AGEING=250
                 BOOTPROTO=none
                 DEFROUTE=yes
@@ -2573,19 +2274,15 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 PRIO=22
                 STP=no
                 TYPE=Bridge
-                USERCTL=no"""
-            ),
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth0
                 HWADDR=c0:d6:9f:2c:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth0.101": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth0.101": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEFROUTE=yes
                 DEVICE=eth0.101
@@ -2601,10 +2298,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 ONBOOT=yes
                 PHYSDEV=eth0
                 USERCTL=no
-                VLAN=yes"""
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                VLAN=yes"""),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth1
                 HWADDR=aa:d6:9f:2c:e8:80
@@ -2612,10 +2307,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 ONBOOT=yes
                 SLAVE=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth2": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth2": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth2
                 HWADDR=c0:bb:9f:2c:e8:80
@@ -2623,40 +2316,32 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 ONBOOT=yes
                 SLAVE=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth3": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth3": textwrap.dedent("""\
                 BOOTPROTO=none
                 BRIDGE=br0
                 DEVICE=eth3
                 HWADDR=66:bb:9f:2c:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth4": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth4": textwrap.dedent("""\
                 BOOTPROTO=none
                 BRIDGE=br0
                 DEVICE=eth4
                 HWADDR=98:bb:9f:2c:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-eth5": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-eth5": textwrap.dedent("""\
                 BOOTPROTO=dhcp
                 DEVICE=eth5
                 DHCLIENT_SET_DEFAULT_ROUTE=no
                 HWADDR=98:bb:9f:2c:e8:8a
                 ONBOOT=no
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-ib0": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-ib0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=ib0
                 HWADDR=a0:00:02:20:fe:80:00:00:00:00:00:00:ec:0d:9a:03:00:15:e2:c1
@@ -2665,12 +2350,10 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 NETMASK=255.255.255.0
                 ONBOOT=yes
                 TYPE=InfiniBand
-                USERCTL=no"""
-            ),
+                USERCTL=no"""),
         },
         "expected_network_manager": {
-            "cloud-init-eth3.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth3.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2687,10 +2370,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=66:BB:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-eth5.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth5.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2711,10 +2392,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=8.8.8.8;4.4.4.4;8.8.4.4;
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-ib0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-ib0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2738,10 +2417,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=8.8.8.8;4.4.4.4;8.8.4.4;
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-bond0.200.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0.200.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2764,10 +2441,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=8.8.8.8;4.4.4.4;8.8.4.4;
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2782,10 +2457,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=C0:D6:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-eth4.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth4.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2802,10 +2475,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=98:BB:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-eth1.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2822,10 +2493,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=AA:D6:9F:2C:E8:80
 
-                """
-            ),
-            "cloud-init-br0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-br0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2857,10 +2526,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 address1=2001:1::1/64
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-eth0.101.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth0.101.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2886,10 +2553,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 dns=192.168.0.10;10.23.23.134;
                 dns-search=barley.maas;sacchromyces.maas;brettanomyces.maas;
 
-                """
-            ),
-            "cloud-init-bond0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2912,10 +2577,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 may-fail=false
                 dns-search=barley.maas;wark.maas;foobar.maas;
 
-                """
-            ),
-            "cloud-init-eth2.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth2.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -2932,11 +2595,9 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                 [ethernet]
                 mac-address=C0:BB:9F:2C:E8:80
 
-                """
-            ),
+                """),
         },
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 2
             ethernets:
                 eth0:
@@ -3033,12 +2694,10 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                     routes:
                         - to: 0.0.0.0/0
                           via: 192.168.0.1
-            """
-        ),
+            """),
     },
     "bond_v1": {
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 1
             config:
               - type: physical
@@ -3084,10 +2743,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                           network: "3001:67c::"
                           netmask: "ffff:ffff::"
                           metric: 10000
-            """
-        ),
-        "expected_netplan": textwrap.dedent(
-            """
+            """),
+        "expected_netplan": textwrap.dedent("""
          network:
              version: 2
              ethernets:
@@ -3130,10 +2787,8 @@ pre-down route del -net 10.0.0.0/8 gw 11.0.0.1 metric 3 || true
                      -   metric: 10000
                          to: 3001:67c::/32
                          via: 3001:67c:15::1
-        """
-        ),
-        "expected_eni": textwrap.dedent(
-            """\
+        """),
+        "expected_eni": textwrap.dedent("""\
 auto lo
 iface lo inet loopback
 
@@ -3195,8 +2850,7 @@ iface bond0 inet6 static
 || true
     pre-down route del -A inet6 3001:67c::/32 gw 3001:67c:15::1 metric 10000 \
 || true
-        """
-        ),
+        """),
         "expected_sysconfig_opensuse": {
             "ifcfg-bond0": textwrap.dedent(
                 """\
@@ -3216,20 +2870,16 @@ iface bond0 inet6 static
         STARTMODE=auto
         """
             ),
-            "ifcfg-bond0s0": textwrap.dedent(
-                """\
+            "ifcfg-bond0s0": textwrap.dedent("""\
         BOOTPROTO=none
         LLADDR=aa:bb:cc:dd:e8:00
         STARTMODE=hotplug
-        """
-            ),
-            "ifcfg-bond0s1": textwrap.dedent(
-                """\
+        """),
+            "ifcfg-bond0s1": textwrap.dedent("""\
         BOOTPROTO=none
         LLADDR=aa:bb:cc:dd:e8:01
         STARTMODE=hotplug
-        """
-            ),
+        """),
         },
         "expected_sysconfig_rhel": {
             "ifcfg-bond0": textwrap.dedent(
@@ -3258,8 +2908,7 @@ iface bond0 inet6 static
         USERCTL=no
         """
             ),
-            "ifcfg-bond0s0": textwrap.dedent(
-                """\
+            "ifcfg-bond0s0": textwrap.dedent("""\
         BOOTPROTO=none
         DEVICE=bond0s0
         HWADDR=aa:bb:cc:dd:e8:00
@@ -3268,25 +2917,19 @@ iface bond0 inet6 static
         SLAVE=yes
         TYPE=Ethernet
         USERCTL=no
-        """
-            ),
-            "route6-bond0": textwrap.dedent(
-                """\
+        """),
+            "route6-bond0": textwrap.dedent("""\
         # Created by cloud-init automatically, do not edit.
         #
         2001:67c::/32 via 2001:67c:1562::1  dev bond0
         3001:67c::/32 via 3001:67c:15::1 metric 10000 dev bond0
-            """
-            ),
-            "route-bond0": textwrap.dedent(
-                """\
+            """),
+            "route-bond0": textwrap.dedent("""\
         ADDRESS0=10.1.3.0
         GATEWAY0=192.168.0.3
         NETMASK0=255.255.255.0
-        """
-            ),
-            "ifcfg-bond0s1": textwrap.dedent(
-                """\
+        """),
+            "ifcfg-bond0s1": textwrap.dedent("""\
         BOOTPROTO=none
         DEVICE=bond0s1
         HWADDR=aa:bb:cc:dd:e8:01
@@ -3295,12 +2938,10 @@ iface bond0 inet6 static
         SLAVE=yes
         TYPE=Ethernet
         USERCTL=no
-        """
-            ),
+        """),
         },
         "expected_network_manager": {
-            "cloud-init-bond0s0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-bond0s0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3317,10 +2958,8 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=AA:BB:CC:DD:E8:00
 
-                """
-            ),
-            "cloud-init-bond0s1.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0s1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3337,10 +2976,8 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=AA:BB:CC:DD:E8:01
 
-                """
-            ),
-            "cloud-init-bond0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3381,13 +3018,11 @@ iface bond0 inet6 static
                 [ethernet]
                 mtu=9000
 
-                """
-            ),
+                """),
         },
     },
     "bond_v2": {
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 2
             ethernets:
               bond0s0:
@@ -3431,10 +3066,8 @@ iface bond0 inet6 static
                 -   metric: 10000
                     to: 3001:67c::/32
                     via: 3001:67c:15::1
-            """
-        ),
-        "expected_netplan": textwrap.dedent(
-            """
+            """),
+        "expected_netplan": textwrap.dedent("""
          network:
              version: 2
              ethernets:
@@ -3479,10 +3112,8 @@ iface bond0 inet6 static
                      -   metric: 10000
                          to: 3001:67c::/32
                          via: 3001:67c:15::1
-        """
-        ),
-        "expected_eni": textwrap.dedent(
-            """\
+        """),
+        "expected_eni": textwrap.dedent("""\
 auto lo
 iface lo inet loopback
 
@@ -3544,8 +3175,7 @@ iface bond0 inet6 static
 || true
     pre-down route del -A inet6 3001:67c::/32 gw 3001:67c:15::1 metric 10000 \
 || true
-        """
-        ),
+        """),
         "expected_sysconfig_opensuse": {
             "ifcfg-bond0": textwrap.dedent(
                 """\
@@ -3569,20 +3199,16 @@ iface bond0 inet6 static
         STARTMODE=auto
         """
             ),
-            "ifcfg-bond0s0": textwrap.dedent(
-                """\
+            "ifcfg-bond0s0": textwrap.dedent("""\
         BOOTPROTO=none
         LLADDR=aa:bb:cc:dd:e8:00
         STARTMODE=hotplug
-        """
-            ),
-            "ifcfg-bond0s1": textwrap.dedent(
-                """\
+        """),
+            "ifcfg-bond0s1": textwrap.dedent("""\
         BOOTPROTO=none
         LLADDR=aa:bb:cc:dd:e8:01
         STARTMODE=hotplug
-        """
-            ),
+        """),
         },
         "expected_sysconfig_rhel": {
             "ifcfg-bond0": textwrap.dedent(
@@ -3615,8 +3241,7 @@ iface bond0 inet6 static
         USERCTL=no
         """
             ),
-            "ifcfg-bond0s0": textwrap.dedent(
-                """\
+            "ifcfg-bond0s0": textwrap.dedent("""\
         BOOTPROTO=none
         DEVICE=bond0s0
         HWADDR=aa:bb:cc:dd:e8:00
@@ -3625,25 +3250,19 @@ iface bond0 inet6 static
         SLAVE=yes
         TYPE=Ethernet
         USERCTL=no
-        """
-            ),
-            "route6-bond0": textwrap.dedent(
-                """\
+        """),
+            "route6-bond0": textwrap.dedent("""\
         # Created by cloud-init automatically, do not edit.
         #
         2001:67c::/32 via 2001:67c:1562::1  dev bond0
         3001:67c::/32 via 3001:67c:15::1 metric 10000 dev bond0
-            """
-            ),
-            "route-bond0": textwrap.dedent(
-                """\
+            """),
+            "route-bond0": textwrap.dedent("""\
         ADDRESS0=10.1.3.0
         GATEWAY0=192.168.0.3
         NETMASK0=255.255.255.0
-        """
-            ),
-            "ifcfg-bond0s1": textwrap.dedent(
-                """\
+        """),
+            "ifcfg-bond0s1": textwrap.dedent("""\
         BOOTPROTO=none
         DEVICE=bond0s1
         HWADDR=aa:bb:cc:dd:e8:01
@@ -3652,12 +3271,10 @@ iface bond0 inet6 static
         SLAVE=yes
         TYPE=Ethernet
         USERCTL=no
-        """
-            ),
+        """),
         },
         "expected_network_manager": {
-            "cloud-init-bond0s0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-bond0s0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3674,10 +3291,8 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=AA:BB:CC:DD:E8:00
 
-                """
-            ),
-            "cloud-init-bond0s1.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0s1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3694,10 +3309,8 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=AA:BB:CC:DD:E8:01
 
-                """
-            ),
-            "cloud-init-bond0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-bond0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3734,13 +3347,11 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=2001:1::1/92
 
-                """
-            ),
+                """),
         },
     },
     "vlan_v1": {
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 1
             config:
               - type: physical
@@ -3763,18 +3374,14 @@ iface bond0 inet6 static
                      - gateway: 2001:1::1
                        netmask: '::'
                        network: '::'
-            """
-        ),
+            """),
         "expected_sysconfig_opensuse": {
             # TODO RJS: unknown proper BOOTPROTO setting ask Marius
-            "ifcfg-en0": textwrap.dedent(
-                """\
+            "ifcfg-en0": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=aa:bb:cc:dd:e8:00
-                STARTMODE=auto"""
-            ),
-            "ifcfg-en0.99": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-en0.99": textwrap.dedent("""\
                 BOOTPROTO=static
                 IPADDR=192.168.2.2
                 IPADDR1=192.168.1.2
@@ -3785,21 +3392,17 @@ iface bond0 inet6 static
                 STARTMODE=auto
                 ETHERDEVICE=en0
                 VLAN_ID=99
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-en0": textwrap.dedent(
-                """\
+            "ifcfg-en0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=en0
                 HWADDR=aa:bb:cc:dd:e8:00
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-en0.99": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-en0.99": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEFROUTE=yes
                 DEVICE=en0.99
@@ -3817,12 +3420,10 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 PHYSDEV=en0
                 USERCTL=no
-                VLAN=yes"""
-            ),
+                VLAN=yes"""),
         },
         "expected_network_manager": {
-            "cloud-init-en0.99.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-en0.99.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3852,10 +3453,8 @@ iface bond0 inet6 static
                 address1=2001:1::bbbb/96
                 route1=::/0,2001:1::1
 
-                """
-            ),
-            "cloud-init-en0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-en0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3870,13 +3469,11 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=AA:BB:CC:DD:E8:00
 
-                """
-            ),
+                """),
         },
     },
     "vlan_v2": {
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 2
             ethernets:
                 en0:
@@ -3898,18 +3495,14 @@ iface bond0 inet6 static
                     -   to: ::/0
                         via: 2001:1::1
 
-            """
-        ),
+            """),
         "expected_sysconfig_opensuse": {
             # TODO RJS: unknown proper BOOTPROTO setting ask Marius
-            "ifcfg-en0": textwrap.dedent(
-                """\
+            "ifcfg-en0": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=aa:bb:cc:dd:e8:00
-                STARTMODE=auto"""
-            ),
-            "ifcfg-en0.99": textwrap.dedent(
-                """\
+                STARTMODE=auto"""),
+            "ifcfg-en0.99": textwrap.dedent("""\
                 BOOTPROTO=static
                 IPADDR=192.168.2.2
                 IPADDR1=192.168.1.2
@@ -3920,21 +3513,17 @@ iface bond0 inet6 static
                 STARTMODE=auto
                 ETHERDEVICE=en0
                 VLAN_ID=99
-            """
-            ),
+            """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-en0": textwrap.dedent(
-                """\
+            "ifcfg-en0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=en0
                 HWADDR=aa:bb:cc:dd:e8:00
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
-            "ifcfg-en0.99": textwrap.dedent(
-                """\
+                USERCTL=no"""),
+            "ifcfg-en0.99": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEFROUTE=yes
                 DEVICE=en0.99
@@ -3952,12 +3541,10 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 PHYSDEV=en0
                 USERCTL=no
-                VLAN=yes"""
-            ),
+                VLAN=yes"""),
         },
         "expected_network_manager": {
-            "cloud-init-en0.99.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-en0.99.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -3987,10 +3574,8 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=2001:1::bbbb/96
 
-                """
-            ),
-            "cloud-init-en0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-en0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4005,13 +3590,11 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=AA:BB:CC:DD:E8:00
 
-                """
-            ),
+                """),
         },
     },
     "bridge": {
-        "yaml_v1": textwrap.dedent(
-            """
+        "yaml_v1": textwrap.dedent("""
             version: 1
             config:
               - type: physical
@@ -4036,10 +3619,8 @@ iface bond0 inet6 static
                   bridge_bridgeprio: 22
                 subnets:
                   - type: static
-                    address: 192.168.2.2/24"""
-        ),
-        "yaml_v2": textwrap.dedent(
-            """
+                    address: 192.168.2.2/24"""),
+        "yaml_v2": textwrap.dedent("""
             version: 2
             ethernets:
                 eth0:
@@ -4064,11 +3645,9 @@ iface bond0 inet6 static
                     parameters:
                         priority: 22
                         stp: false
-            """
-        ),
+            """),
         "expected_sysconfig_opensuse": {
-            "ifcfg-br0": textwrap.dedent(
-                """\
+            "ifcfg-br0": textwrap.dedent("""\
                 BOOTPROTO=static
                 IPADDR=192.168.2.2
                 NETMASK=255.255.255.0
@@ -4076,30 +3655,24 @@ iface bond0 inet6 static
                 BRIDGE_STP=off
                 BRIDGE_PRIORITY=22
                 BRIDGE_PORTS='eth0 eth1'
-                """
-            ),
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=static
                 BRIDGE=yes
                 LLADDR=52:54:00:12:34:00
                 IPADDR6=2001:1::100/96
                 STARTMODE=auto
-                """
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=static
                 BRIDGE=yes
                 LLADDR=52:54:00:12:34:01
                 IPADDR6=2001:1::101/96
                 STARTMODE=auto
-                """
-            ),
+                """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-br0": textwrap.dedent(
-                """\
+            "ifcfg-br0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=br0
                 IPADDR=192.168.2.2
@@ -4109,10 +3682,8 @@ iface bond0 inet6 static
                 STP=no
                 TYPE=Bridge
                 USERCTL=no
-                """
-            ),
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=none
                 BRIDGE=br0
                 DEVICE=eth0
@@ -4124,10 +3695,8 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 BRIDGE=br0
                 DEVICE=eth1
@@ -4139,12 +3708,10 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
+                """),
         },
         "expected_network_manager": {
-            "cloud-init-br0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-br0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4166,10 +3733,8 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=192.168.2.2/24
 
-                """
-            ),
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4191,10 +3756,8 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=2001:1::100/96
 
-                """
-            ),
-            "cloud-init-eth1.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4216,13 +3779,11 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=2001:1::101/96
 
-                """
-            ),
+                """),
         },
     },
     "manual": {
-        "yaml": textwrap.dedent(
-            """
+        "yaml": textwrap.dedent("""
             version: 1
             config:
               - type: physical
@@ -4244,10 +3805,8 @@ iface bond0 inet6 static
                 subnets:
                   - type: manual
                     control: manual
-                  """
-        ),
-        "expected_eni": textwrap.dedent(
-            """\
+                  """),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -4261,10 +3820,8 @@ iface bond0 inet6 static
 
             # control-manual eth2
             iface eth2 inet manual
-            """
-        ),
-        "expected_netplan": textwrap.dedent(
-            """\
+            """),
+        "expected_netplan": textwrap.dedent("""\
 
             network:
                 version: 2
@@ -4284,37 +3841,29 @@ iface bond0 inet6 static
                         match:
                             macaddress: 52:54:00:12:34:ff
                         set-name: eth2
-            """
-        ),
+            """),
         "expected_sysconfig_opensuse": {
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=52:54:00:12:34:00
                 IPADDR=192.168.1.2
                 NETMASK=255.255.255.0
                 STARTMODE=manual
-                """
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=52:54:00:12:34:aa
                 MTU=1480
                 STARTMODE=auto
-                """
-            ),
-            "ifcfg-eth2": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth2": textwrap.dedent("""\
                 BOOTPROTO=static
                 LLADDR=52:54:00:12:34:ff
                 STARTMODE=manual
-                """
-            ),
+                """),
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth0
                 HWADDR=52:54:00:12:34:00
@@ -4323,10 +3872,8 @@ iface bond0 inet6 static
                 ONBOOT=no
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
-            "ifcfg-eth1": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth1": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth1
                 HWADDR=52:54:00:12:34:aa
@@ -4334,22 +3881,18 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
-            "ifcfg-eth2": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-eth2": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth2
                 HWADDR=52:54:00:12:34:ff
                 ONBOOT=no
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
+                """),
         },
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4369,10 +3912,8 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=192.168.1.2/24
 
-                """
-            ),
-            "cloud-init-eth1.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth1.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4392,10 +3933,8 @@ iface bond0 inet6 static
                 method=auto
                 may-fail=true
 
-                """
-            ),
-            "cloud-init-eth2.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-eth2.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4414,13 +3953,11 @@ iface bond0 inet6 static
                 method=auto
                 may-fail=true
 
-                """
-            ),
+                """),
         },
     },
     "v1-dns": {
-        "expected_networkd": textwrap.dedent(
-            """\
+        "expected_networkd": textwrap.dedent("""\
             [Address]
             Address=192.168.1.20/16
 
@@ -4435,10 +3972,8 @@ iface bond0 inet6 static
 
             [Route]
             Gateway=192.168.1.1
-        """
-        ),
-        "expected_eni": textwrap.dedent(
-            """\
+        """),
+        "expected_eni": textwrap.dedent("""\
             # This file is generated from information provided by the datasource.  Changes
             # to it will not persist across an instance reboot.  To disable cloud-init's
             # network configuration capabilities, write a file
@@ -4459,10 +3994,8 @@ iface bond0 inet6 static
                 dns-nameservers 1.1.1.1 3.3.3.3
                 dns-search aaaa cccc
                 gateway 192.168.1.1
-        """  # noqa: E501
-        ),
-        "expected_netplan": textwrap.dedent(
-            """\
+        """),  # noqa: E501
+        "expected_netplan": textwrap.dedent("""\
             # This file is generated from information provided by the datasource.  Changes
             # to it will not persist across an instance reboot.  To disable cloud-init's
             # network configuration capabilities, write a file
@@ -4487,11 +4020,9 @@ iface bond0 inet6 static
                         -   to: default
                             via: 192.168.1.1
                         set-name: interface0
-        """  # noqa: E501
-        ),
+        """),  # noqa: E501
         "expected_sysconfig_opensuse": {
-            "ifcfg-interface0": textwrap.dedent(
-                """\
+            "ifcfg-interface0": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=static
@@ -4499,12 +4030,10 @@ iface bond0 inet6 static
                 LLADDR=11:22:33:44:55:66
                 NETMASK=255.255.0.0
                 STARTMODE=auto
-            """
-            )
+            """)
         },
         "expected_sysconfig_rhel": {
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+            "ifcfg-eth0": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=none
@@ -4520,12 +4049,10 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-            """
-            ),
+            """),
         },
         "expected_network_manager": {
-            "cloud-init-interface0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-interface0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4548,11 +4075,9 @@ iface bond0 inet6 static
                 dns=3.3.3.3;1.1.1.1;
                 dns-search=cccc;aaaa;
 
-            """
-            )
+            """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 1
             config:
             - type: physical
@@ -4578,34 +4103,28 @@ iface bond0 inet6 static
               - FEDC::1
               search:
               - bbbb
-        """
-        ),
+        """),
     },
     "v2-dev-name-via-mac-lookup": {
         "expected_sysconfig_rhel": {
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+            "ifcfg-eth0": textwrap.dedent("""\
                 BOOTPROTO=none
                 DEVICE=eth0
                 HWADDR=cf:d6:af:48:e8:80
                 ONBOOT=yes
                 TYPE=Ethernet
-                USERCTL=no"""
-            ),
+                USERCTL=no"""),
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               nic0:
                 match:
                   macaddress: 'cf:d6:af:48:e8:80'
-            """
-        ),
+            """),
     },
     "v2-mixed-routes": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -4635,11 +4154,9 @@ iface bond0 inet6 static
                 address 2001:bc8:1210:232:dc00:ff:fe20:185/64
                 dns-nameservers FEDC::1
                 dns-search lab home
-        """  # noqa: E501
-        ),
+        """),  # noqa: E501
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4677,11 +4194,9 @@ iface bond0 inet6 static
                 dns=FEDC::1;
                 dns-search=lab;home;
 
-            """
-            )
+            """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               eth0:
@@ -4707,12 +4222,10 @@ iface bond0 inet6 static
                 addresses:
                   - 192.168.1.20/16
                   - 2001:bc8:1210:232:dc00:ff:fe20:185/64
-        """
-        ),
+        """),
     },
     "v2-mixed-routes-reversed": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -4742,11 +4255,9 @@ iface bond0 inet6 static
                 address 192.168.1.20/16
                 dns-nameservers 8.8.8.8
                 dns-search home lab
-        """  # noqa: E501
-        ),
+        """),  # noqa: E501
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4784,11 +4295,9 @@ iface bond0 inet6 static
                 dns=FEDC::1;
                 dns-search=home;lab;
 
-            """
-            )
+            """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               eth0:
@@ -4814,12 +4323,10 @@ iface bond0 inet6 static
                 addresses:
                   - 2001:bc8:1210:232:dc00:ff:fe20:185/64
                   - 192.168.1.20/16
-        """
-        ),
+        """),
     },
     "v2-mixed-routes-no-ipv6-addr": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -4840,11 +4347,9 @@ iface bond0 inet6 static
                 dns-search lab home
                 post-up route add -A inet6 default gw fe80::dc00:ff:fe20:186 || true
                 pre-down route del -A inet6 default gw fe80::dc00:ff:fe20:186 || true
-        """  # noqa: E501
-        ),
+        """),  # noqa: E501
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4872,11 +4377,9 @@ iface bond0 inet6 static
                 dns=FEDC::1;
                 dns-search=lab;home;
 
-            """
-            )
+            """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               eth0:
@@ -4891,12 +4394,10 @@ iface bond0 inet6 static
                     to: ::/0
                 addresses:
                   - 192.168.1.20/16
-        """
-        ),
+        """),
     },
     "v2-dns": {
-        "expected_networkd": textwrap.dedent(
-            """\
+        "expected_networkd": textwrap.dedent("""\
             [Address]
             Address=192.168.1.20/16
 
@@ -4910,10 +4411,8 @@ iface bond0 inet6 static
             DHCP=no
             DNS=8.8.8.8 FEDC::1
             Domains=lab home
-        """
-        ),
-        "expected_eni": textwrap.dedent(
-            """\
+        """),
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -4928,11 +4427,8 @@ iface bond0 inet6 static
                 address 2001:bc8:1210:232:dc00:ff:fe20:185/64
                 dns-nameservers FEDC::1
                 dns-search lab home
-        """  # noqa: E501
-        ),
-        "expected_sysconfig_opensuse": {
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+        """),  # noqa: E501
+        "expected_sysconfig_opensuse": {"ifcfg-eth0": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=static
@@ -4940,12 +4436,8 @@ iface bond0 inet6 static
                 IPADDR6=2001:bc8:1210:232:dc00:ff:fe20:185/64
                 NETMASK=255.255.0.0
                 STARTMODE=auto
-            """
-            )
-        },
-        "expected_sysconfig_rhel": {
-            "ifcfg-eth0": textwrap.dedent(
-                """\
+            """)},
+        "expected_sysconfig_rhel": {"ifcfg-eth0": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=none
@@ -4962,12 +4454,9 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-            """
-            )
-        },
+            """)},
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -4996,11 +4485,9 @@ iface bond0 inet6 static
                 dns=FEDC::1;
                 dns-search=lab;home;
 
-            """
-            )
+            """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               eth0:
@@ -5010,12 +4497,10 @@ iface bond0 inet6 static
                 addresses:
                 - 192.168.1.20/16
                 - 2001:bc8:1210:232:dc00:ff:fe20:185/64
-        """
-        ),
+        """),
     },
     "v2-dns-no-if-ips": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
@@ -5024,11 +4509,9 @@ iface bond0 inet6 static
 
             # control-alias eth0
             iface eth0 inet6 dhcp
-        """  # noqa: E501
-        ),
+        """),  # noqa: E501
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -5055,11 +4538,9 @@ iface bond0 inet6 static
                 dns=FEDC::1;
                 dns-search=lab;home;
 
-            """
-            )
+            """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               eth0:
@@ -5068,21 +4549,17 @@ iface bond0 inet6 static
                 nameservers:
                   search: [lab, home]
                   addresses: [8.8.8.8, "FEDC::1"]
-        """
-        ),
+        """),
     },
     "v2-dns-no-dhcp": {
-        "expected_eni": textwrap.dedent(
-            """\
+        "expected_eni": textwrap.dedent("""\
             auto lo
             iface lo inet loopback
 
             iface eth0 inet manual
-        """  # noqa: E501
-        ),
+        """),  # noqa: E501
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -5097,24 +4574,20 @@ iface bond0 inet6 static
 
                 [ethernet]
 
-            """
-            )
+            """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               eth0:
                 nameservers:
                   search: [lab, home]
                   addresses: [8.8.8.8, "FEDC::1"]
-        """
-        ),
+        """),
     },
     "v2-route-no-gateway": {
         "expected_network_manager": {
-            "cloud-init-eth0.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-eth0.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -5134,23 +4607,19 @@ iface bond0 inet6 static
                 may-fail=false
                 route1=0.0.0.0/0
 
-                """
-            )
+                """)
         },
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               eth0:
                 dhcp4: true
                 routes:
                 - to: "0.0.0.0/0"
-            """
-        ),
+            """),
     },
     "v2-bridges-set-name": {
-        "yaml": textwrap.dedent(
-            """\
+        "yaml": textwrap.dedent("""\
             version: 2
             ethernets:
               baremetalport:
@@ -5172,11 +4641,9 @@ iface bond0 inet6 static
                   - fc00:1:2::2/64
                 interfaces:
                   - provisioningport
-            """
-        ),
+            """),
         "expected_sysconfig_rhel": {
-            "ifcfg-baremetal": textwrap.dedent(
-                """\
+            "ifcfg-baremetal": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=none
@@ -5188,10 +4655,8 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Bridge
                 USERCTL=no
-                """
-            ),
-            "ifcfg-baremetal0": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-baremetal0": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=none
@@ -5201,10 +4666,8 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
-            "ifcfg-provisioning": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-provisioning": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=none
@@ -5216,10 +4679,8 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Bridge
                 USERCTL=no
-                """
-            ),
-            "ifcfg-provisioning0": textwrap.dedent(
-                """\
+                """),
+            "ifcfg-provisioning0": textwrap.dedent("""\
                 # Created by cloud-init automatically, do not edit.
                 #
                 BOOTPROTO=none
@@ -5229,12 +4690,10 @@ iface bond0 inet6 static
                 ONBOOT=yes
                 TYPE=Ethernet
                 USERCTL=no
-                """
-            ),
+                """),
         },
         "expected_network_manager": {
-            "cloud-init-baremetal.nmconnection": textwrap.dedent(
-                """\
+            "cloud-init-baremetal.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -5254,10 +4713,8 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=fc00:1:1::2/64
 
-                """
-            ),
-            "cloud-init-baremetalport.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-baremetalport.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -5274,10 +4731,8 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=52:54:00:BD:8F:CB
 
-                """
-            ),
-            "cloud-init-provisioning.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-provisioning.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -5297,10 +4752,8 @@ iface bond0 inet6 static
                 may-fail=false
                 address1=fc00:1:2::2/64
 
-                """
-            ),
-            "cloud-init-provisioningport.nmconnection": textwrap.dedent(
-                """\
+                """),
+            "cloud-init-provisioningport.nmconnection": textwrap.dedent("""\
                 # Generated by cloud-init. Changes will be lost.
 
                 [connection]
@@ -5317,8 +4770,7 @@ iface bond0 inet6 static
                 [ethernet]
                 mac-address=52:54:00:25:AE:12
 
-                """
-            ),
+                """),
         },
     },
 }

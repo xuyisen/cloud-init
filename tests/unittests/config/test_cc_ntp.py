@@ -61,7 +61,7 @@ class TestNtp:
             template = TIMESYNCD_TEMPLATE
         else:
             template = NTP_TEMPLATE
-        (confpath, _template_fn) = self._generate_template(
+        confpath, _template_fn = self._generate_template(
             templates_dir, template=template
         )
         ntpconfig = copy.deepcopy(dcfg[client])
@@ -121,7 +121,7 @@ class TestNtp:
         self, tmpdir
     ):
         """write_ntp_config_template reads from $client.conf.distro.tmpl"""
-        (confpath, template_fn) = self._generate_template(tmpdir)
+        confpath, template_fn = self._generate_template(tmpdir)
         cc_ntp.write_ntp_config_template(
             "ubuntu",
             servers=[],
@@ -145,7 +145,7 @@ class TestNtp:
         """
         distro = "ubuntu"
         pools = cc_ntp.generate_server_names(distro)
-        (confpath, template_fn) = self._generate_template(tmpdir)
+        confpath, template_fn = self._generate_template(tmpdir)
         cc_ntp.write_ntp_config_template(
             distro,
             servers=[],
@@ -166,7 +166,7 @@ class TestNtp:
         """
         distro = "sles"
         default_pools = cc_ntp.generate_server_names(distro)
-        (confpath, template_fn) = self._generate_template(tmpdir)
+        confpath, template_fn = self._generate_template(tmpdir)
 
         cc_ntp.write_ntp_config_template(
             distro,
@@ -192,7 +192,7 @@ class TestNtp:
         """Test timesycnd template is correct"""
         pools = ["0.mycompany.pool.ntp.org", "3.mycompany.pool.ntp.org"]
         servers = ["192.168.23.3", "192.168.23.4"]
-        (confpath, template_fn) = self._generate_template(
+        confpath, template_fn = self._generate_template(
             tmpdir, template=TIMESYNCD_TEMPLATE
         )
         cc_ntp.write_ntp_config_template(
